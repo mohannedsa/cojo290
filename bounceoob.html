@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Bounce </title>
+    <meta charset="utf-8" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.min.js"></script>
+    <script>
+
+// Simple OOP example
+var sp; // Declare the object
+var spots =[];
+var numSpots =100;
+
+function setup() {
+  w = windowWidth;
+  h = windowHeight;
+  createCanvas(w, h);
+
+  for(var i=0; i< numSpots; ++i){
+    red =random(256);
+    green =random(256);
+    blue =random(256);
+    alpha=random(256);
+    var c = color(red,green,blue, alpha);
+    spots[i] = new Spot(w/2,h/2,random(10,100),random(-7,7), random(-7,7),c);
+  }
+}
+function draw() {  
+  background(0,0,0,15);
+  for(var i=0; i< numSpots; ++i){
+    spots[i].move();
+    spots[i].display();
+  }
+}
+// function to define a class
+function Spot(xpos,ypos,diameter,xdir,ydir,scol) {    
+  // Construct the object 
+  this.x = xpos;
+  this.y = ypos;
+  this.d = diameter;
+  this.xd= xdir;
+  this.yd= ydir;
+  this.c= scol;
+ 
+  // method to display the object
+  this.display = function() {
+    fill(scol);
+    ellipse(this.x,this.y,this.d,this.d);
+  }
+  this.move = function(){
+    if(this.x>(w-this.d/2) ||this.x< this.d/2){
+        this.xd*=-1;
+      }
+    if (this.y>(h-this.d/2)||this.y<this.d/2 ) {
+        this.yd *=-1;
+      }
+    this.x += this.xd;
+    this.y += this.yd;
+  }
+}
+</script>
+</head>
+  <body>
+    
+  </body>
+</html>
+
